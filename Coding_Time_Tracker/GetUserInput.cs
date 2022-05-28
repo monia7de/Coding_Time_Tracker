@@ -2,7 +2,9 @@
 {
     internal class GetUserInput
     {
-        Console.Clear();
+        internal void MainMenu()
+        {
+            Console.Clear();
             bool closeApp = false;
             while (closeApp == false)
             {
@@ -19,11 +21,11 @@
 
 
                 while (string.IsNullOrEmpty(userMenuChoice))
-                    {
+                {
                     Console.WriteLine("\nInvalid Command. Please type a number from 0 to 4. \n");
                     userMenuChoice = Console.ReadLine();
 
-                    }
+                }
 
 
                 switch (userMenuChoice)
@@ -35,19 +37,19 @@
                         break;
 
                     case "1":
-                       // codingController.Get();
+                        // codingController.Get();
                         break;
 
                     case "2":
-                       // ProcessAdd();
+                        // ProcessAdd();
                         break;
 
                     case "3":
-                      //  ProcessUpdate();
+                        //  ProcessUpdate();
                         break;
 
                     case "4":
-                     //   ProcessDelete();
+                        //   ProcessDelete();
                         break;
 
                     case "default":
@@ -57,5 +59,6 @@
                 }
 
             }
+        }
     }
 }
