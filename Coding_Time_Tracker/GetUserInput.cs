@@ -1,10 +1,8 @@
 ﻿namespace coding_time_tracker
 {
-    internal class UserInput
+    internal class GetUserInput
     {
-        internal void MainMenu()
-        {
-            Console.Clear();
+        Console.Clear();
             bool closeApp = false;
             while (closeApp == false)
             {
@@ -59,6 +57,5 @@
                 }
 
             }
-        }
     }
 }

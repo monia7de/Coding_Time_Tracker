@@ -10,8 +10,8 @@ namespace coding_time_tracker
             DatabaseManager databaseManager = new();
             databaseManager.CreateTable(connectionString);
 
-            UserInput userInput = new();
-            userInput.MainMenu();
+            GetUserInput getUserInput = new();
+            getUserInput.MainMenu();
 
 
         }
