@@ -12,11 +12,13 @@ namespace coding_time_tracker
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
+
                     tableCmd.CommandText =
-                    @"CREATE TABLE IF NOT EXISTS coding_time (
+                    @"CREATE TABLE IF NOT EXISTS habits (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Name TEXT,
                     Date TEXT,
-                    Duration TEXT
+                    Duration TEXT,
                     )";
 
                     tableCmd.ExecuteNonQuery();
