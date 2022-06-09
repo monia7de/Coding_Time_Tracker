@@ -20,7 +20,7 @@ namespace coding_time_tracker
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    tableCmd.CommandText = "SELECT * FROM coding_time";
+                    tableCmd.CommandText = "SELECT * FROM habits";
                     using (var reader = tableCmd.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -31,8 +31,9 @@ namespace coding_time_tracker
                                     new Habit
                                     {
                                         Id = reader.GetInt32(0),
-                                        Date = reader.GetString(1),
-                                        Duration = reader.GetString(2)
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
                                     });
                             }
                         }
@@ -60,21 +61,22 @@ namespace coding_time_tracker
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    tableCmd.CommandText = $"SELECT * FROM coding_time Where Id = '{id}'";
+                    tableCmd.CommandText = $"SELECT * FROM habits Where Id = '{id}'";
 
                     using (var reader = tableCmd.ExecuteReader())
                     {
-                        Habit coding = new();
+                        Habit habit = new();
                         if (reader.HasRows)
                         {
                             reader.Read();
-                            coding.Id = reader.GetInt32(0);
-                            coding.Date = reader.GetString(1);
-                            coding.Duration = reader.GetString(2);
+                            habit.Id = reader.GetInt32(0);
+                            habit.Name = reader.GetString(1);
+                            habit.Date = reader.GetString(2);
+                            habit.Duration = reader.GetString(3);
                         }
                         Console.WriteLine("\n\n");
 
-                        return coding;
+                        return habit;
                     };
                 }
             }
@@ -88,7 +90,7 @@ namespace coding_time_tracker
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    tableCmd.CommandText = $"INSERT INTO habits (date, duration) VALUES ('{habit.Date}', '{habit.Duration}')";
+                    tableCmd.CommandText = $"INSERT INTO habits (name, date, duration) VALUES ('{habit.Name}', '{habit.Date}', '{habit.Duration}')";
 
                     tableCmd.ExecuteNonQuery(); 
                 }   
@@ -103,7 +105,8 @@ namespace coding_time_tracker
                 {
                     connection.Open();
                     tableCmd.CommandText =
-                        $@"UPDATE coding_time SET
+                        $@"UPDATE habits SET
+                            Name = '{habit.Name}',
                             Date = '{habit.Date}',
                             Duration = '{habit.Duration}'
                             WHERE

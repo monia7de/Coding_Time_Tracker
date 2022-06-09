@@ -9,7 +9,7 @@ namespace coding_time_tracker
     internal class GetUserInput
     {
         CodingController codingController = new();
-        Validation validation = new();
+        static Validation validation = new();
         DurationCalculator durationCalculator = new();
         internal void MainMenu()
         {
@@ -77,8 +77,8 @@ namespace coding_time_tracker
 
             Habit habit = new();
 
-            habit.Date = date;
             habit.Name = name;
+            habit.Date = date;            
             habit.Duration = duration;
 
             codingController.Post(habit);
@@ -87,7 +87,7 @@ namespace coding_time_tracker
 private void ProcessUpdate()
         {
             codingController.Get();
-            Console.WriteLine("Please add id of the category you want to update ( or type 0 to return to Main Menu");
+            Console.WriteLine("Please add id of the category you want to update (or type 0 to return to Main Menu");
             string commandInput = Console.ReadLine();   
 
             while (!Int32.TryParse(commandInput, out _) || string.IsNullOrEmpty(commandInput) || Int32.Parse(commandInput) < 0)
