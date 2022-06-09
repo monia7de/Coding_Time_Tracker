@@ -71,8 +71,8 @@ namespace coding_time_tracker
 
         private void ProcessAdd()
         {
-            var date = GetDateInput();
             var name = GetHabitNameInput();
+            var date = GetDateInput();
             var duration = GetDurationInput();
 
             Habit habit = new();
@@ -192,8 +192,6 @@ private void ProcessUpdate()
             }
         }
 
-
-
         private void ProcessDelete()
         {
             codingController.Get();
@@ -223,22 +221,7 @@ private void ProcessUpdate()
             MainMenu();
 
         }
-
-   
-
-        internal string GetDateInput()
-        {
-            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the main menu. \n\n");
-
-            string dateInput = Console.ReadLine();
-
-            if (dateInput == "0") MainMenu();
-
-            string dateInputValue = validation.DateInput(dateInput);
-
-            return dateInputValue;
-        }
-
+              
         internal string GetHabitNameInput()
         {
             Console.WriteLine("\nWhich habit would you like to enter:");
@@ -250,19 +233,32 @@ private void ProcessUpdate()
 
             if (habitNameInput == "0") MainMenu();
 
-            string habitNameValue = validation.HabitNameChoice(habitNameInput);
+            string habitNameValidated = validation.HabitNameChoice(habitNameInput);
 
-            if (habitNameValue == "c")
+            if (habitNameValidated == "c")
             {
-                habitNameValue = "Coding";
+                habitNameValidated = "Coding";
             }
             else
             {
-                habitNameValue = "Distractions";
+                habitNameValidated = "Distractions";
             }
 
-            return habitNameValue;
+            return habitNameValidated;
        
+        }
+
+        internal string GetDateInput()
+        {
+            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the main menu. \n\n");
+
+            string dateInput = Console.ReadLine();
+
+            if (dateInput == "0") MainMenu();
+
+            string dateInputValidated = validation.DateInput(dateInput);
+
+            return dateInputValidated;
         }
 
         internal string GetDurationInput()
@@ -329,9 +325,9 @@ private void ProcessUpdate()
 
             if (durationInput == "0") MainMenu();
 
-            string durationInputType = validation.Time(durationInput);
+            string durationInputValidated = validation.Time(durationInput);
                      
-            return durationInputType;
+            return durationInputValidated;
         }
 
         internal string GetStartAndFinishTimes()
@@ -339,14 +335,14 @@ private void ProcessUpdate()
             Console.WriteLine("\nPlease enter the Start Time (Format: ). Type 0 to return to the Main Menu");
             string startTimeInput = Console.ReadLine();
 
-            string startTimeInputValue = validation.Time(startTimeInput);
+            string startTimeInputValidated = validation.Time(startTimeInput);
 
             Console.WriteLine("\nPlease enter the End Time (Format: ). Type 0 to return to the Main Menu");
             string endTimeInput = Console.ReadLine();
 
-            string endTimeInputValue = validation.Time(endTimeInput);
+            string endTimeInputValidated = validation.Time(endTimeInput);
 
-            string durationInput = durationCalculator.DurationTime(startTimeInputValue, endTimeInputValue);
+            string durationInput = durationCalculator.DurationTime(startTimeInputValidated, endTimeInputValidated);
 
             return durationInput;
         }
@@ -356,9 +352,9 @@ private void ProcessUpdate()
             Console.WriteLine("\nPlease enter the number of pomodoros you woould like to add");
             string pomodorosInput = Console.ReadLine();
 
-            int pomodorosInputValue = validation.Pomodoros(pomodorosInput);
+            int pomodorosInputValidated = validation.Pomodoros(pomodorosInput);
 
-            string pomodoroDuration = durationCalculator.PomodorosDuration(pomodorosInputValue);
+            string pomodoroDuration = durationCalculator.PomodorosDuration(pomodorosInputValidated);
 
             return pomodoroDuration;
         }
@@ -371,7 +367,7 @@ private void ProcessUpdate()
 
             if (startInput == "0") MainMenu();
 
-            string startInputValue = validation.StartStopwatch(startInput);
+            string startInputValidated = validation.StartStopwatch(startInput);
 
             stopWatch.Start();
 
@@ -380,7 +376,7 @@ private void ProcessUpdate()
 
             if (endInput == "0") MainMenu();
 
-            string endInputValue = validation.EndStopwatch(endInput);
+            string endInputValidated = validation.EndStopwatch(endInput);
 
             stopWatch.Stop();
             

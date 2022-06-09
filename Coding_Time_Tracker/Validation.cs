@@ -19,6 +19,24 @@ namespace coding_time_tracker
 
         }
 
+        internal string HabitNameChoice(string habitNameInput)
+        {
+
+            while (habitNameInput != "c" && habitNameInput != "d")
+            {
+                Console.WriteLine("\nInvalid Command. Please type 'c' or 'd' or type 0 to return to the Main Menu \n");
+                habitNameInput = Console.ReadLine();
+
+                if (habitNameInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
+            }
+            return habitNameInput;
+
+
+        }
+
         internal string DateInput(string dateInput)
         {
             while (!DateTime.TryParseExact(dateInput, "dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
@@ -31,40 +49,30 @@ namespace coding_time_tracker
         }
 
 
-
-        internal string HabitNameChoice(string habitNameInput)
-        {
-     
-            while (habitNameInput != "c" && habitNameInput != "d")
-            {
-                Console.WriteLine("\nInvalid Command. Please type 'c' or 'd' or type 0 to return to the Main Menu \n");
-                habitNameInput = Console.ReadLine();
-
-                //if (habitNameInput == "0") getUserInput.MainMenu();
-            }                
-            return habitNameInput;       
-                      
-            
-        }
-
         internal string DurationInput(string? durationInput)
         {
             while (!TimeSpan.TryParseExact(durationInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
             {
                 Console.WriteLine("\n\nDuration invalid. Please enter the duration (Format: hh:mm) or type 0 to return to main menu\n\n");
                 durationInput = Console.ReadLine();
-               // if (durationInput == "0") getUserInput.MainMenu();
+                if (durationInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
             }
             return durationInput;   
         }
 
-        internal string Time(string timeInput) //change TimeSpan i format
+        internal string Time(string timeInput) 
         {
             while (!TimeSpan.TryParseExact(timeInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
             {
                 Console.WriteLine("\n\nTime invalid. Please enter the time again (Format: hh:mm) or type 0 to return to main menu\n\n");
                 timeInput = Console.ReadLine();
-               // if (timeInput == "0") getUserInput.MainMenu();
+                if (timeInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
             }
             return timeInput;
         }
@@ -78,7 +86,10 @@ namespace coding_time_tracker
             }
             var pomodoros = Int32.Parse(pomodorosInput);
 
-            //if (pomodoros == 0) getUserInput.MainMenu();
+            if (pomodoros == 0)
+            {
+                getUserInput.MainMenu();
+            }
 
             return pomodoros;
         }
@@ -89,14 +100,21 @@ namespace coding_time_tracker
             {
                 Console.WriteLine("\nInvalid Command. Please type 's' to start the Stopwatch or 0 to return to the Main Memu \n");
                 startInput = Console.ReadLine();
-               // if (startInput == "0") getUserInput.MainMenu();
+                if (startInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
             }
 
             while (startInput != "s")
             {
                 Console.WriteLine("\nInvalid Command.Please type 's' to start the Stopwatch or 0 to return to the Main Memu \n");
                 startInput = Console.ReadLine();
-               // if (startInput == "0") getUserInput.MainMenu();
+                if (startInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
+
             }
             return startInput;
         }
@@ -107,14 +125,20 @@ namespace coding_time_tracker
             {
                 Console.WriteLine("\nInvalid Command. Please type 'es' to stop the Stopwatch or 0 to return to the Main Memu \n");
                 endInput = Console.ReadLine();
-              //  if (endInput == "0") getUserInput.MainMenu();
+                if (endInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
             }
 
             while (endInput != "e")
             {
                 Console.WriteLine("\nInvalid Command.Please type 'e' to stop the Stopwatch or 0 to return to the Main Memu \n");
                 endInput = Console.ReadLine();
-              //  if (endInput == "0") getUserInput.MainMenu();
+                if (endInput == "0")
+                {
+                    getUserInput.MainMenu();
+                }
             }
             return endInput;
         }

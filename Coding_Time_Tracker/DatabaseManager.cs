@@ -14,14 +14,14 @@ namespace coding_time_tracker
                     connection.Open();
 
                     tableCmd.CommandText =
-                    @"CREATE TABLE IF NOT EXISTS habits (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT,
-                    Date TEXT,
-                    Duration TEXT,
-                    )";
-
-                    tableCmd.ExecuteNonQuery();
+                        @"CREATE TABLE IF NOT EXISTS habits (
+                          Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                          Name TEXT,
+                          Date TEXT,
+                          Duration TEXT
+                        )";
+                    
+                    tableCmd.ExecuteNonQuery(); 
                 }
 
 
