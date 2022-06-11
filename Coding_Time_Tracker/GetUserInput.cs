@@ -11,6 +11,11 @@ namespace coding_time_tracker
         CodingController codingController = new();
         static Validation validation = new();
         DurationCalculator durationCalculator = new();
+        
+        /// <summary>
+        /// Method <c>MainMenu</c> gets user input for the main menu choice, validates that the input is not null or empty,
+        /// then calls a method for the selected choice.
+        /// </summary>
         internal void MainMenu()
         {
             Console.Clear();
@@ -68,7 +73,10 @@ namespace coding_time_tracker
             }
 
         }
-
+        /// <summary>
+        /// Method <c>ProcessAdd</c> gets user input for the properties of a habit 
+        /// and passes it to the codingController method to be added to the database.
+        /// </summary>
         private void ProcessAdd()
         {
             var name = GetHabitNameInput();
@@ -84,10 +92,14 @@ namespace coding_time_tracker
             codingController.Post(habit);
                               
         } 
-private void ProcessUpdate()
+        /// <summary>
+        /// Method <c>ProcessUpdate</c> displays all records, gets the user input for the input to be updated
+        /// and validates that the input is not null or empty and that it can be converted into an int
+        /// </summary>
+        private void ProcessUpdate()
         {
             codingController.Get();
-            Console.WriteLine("Please add id of the category you want to update (or type 0 to return to Main Menu");
+            Console.WriteLine("Please add id of the record you want to update (or type 0 to return to Main Menu");
             string commandInput = Console.ReadLine();   
 
             while (!Int32.TryParse(commandInput, out _) || string.IsNullOrEmpty(commandInput) || Int32.Parse(commandInput) < 0)
@@ -153,6 +165,9 @@ private void ProcessUpdate()
 
         }
 
+        /// <summary>
+        /// Method <c>ProcessReport</c> gets the user input for the period they want the report for and validates it
+        /// </summary>
         private void ProcessReport()
         {
             Console.WriteLine("Please type month (MM");
@@ -191,11 +206,13 @@ private void ProcessUpdate()
 
             }
         }
-
+        /// <summary>
+        /// Method <c>ProcessDelete</c> displays all records, gets user input for the record to be deleted and validates it
+        /// </summary>
         private void ProcessDelete()
         {
             codingController.Get();
-            Console.WriteLine("Please add id of the category you want to delete (or 0 to return to Main Menu");
+            Console.WriteLine("Please add id of the record you want to delete (or 0 to return to Main Menu");
 
             string commandInput = Console.ReadLine();
             
@@ -221,7 +238,11 @@ private void ProcessUpdate()
             MainMenu();
 
         }
-              
+             /// <summary>
+             /// Method <c>GetHabitNameInput</c> gets the habit name input, validates it 
+             /// and changes the name of the habit to a full word
+             /// </summary>
+             /// <returns>string</returns>             
         internal string GetHabitNameInput()
         {
             Console.WriteLine("\nWhich habit would you like to enter:");
@@ -247,7 +268,10 @@ private void ProcessUpdate()
             return habitNameValidated;
        
         }
-
+        /// <summary>
+        /// Method <c>GetDateInput</c> gets date input and validates it
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetDateInput()
         {
             Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the main menu. \n\n");
@@ -261,6 +285,11 @@ private void ProcessUpdate()
             return dateInputValidated;
         }
 
+        /// <summary>
+        /// Method <c>GetDurationInput</c> gets duration input by offering a choice of entering different types of records,
+        /// which are used to calculate TImespan duration that is then converted into a string.
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetDurationInput()
         {
             
@@ -316,7 +345,10 @@ private void ProcessUpdate()
         }
 
         
-
+        /// <summary>
+        /// Method <c>GetDurationType</c> gets user duration and validates it
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetDurationType()
         {
             Console.WriteLine("\nPlease enter the duration: (Format: hh:mm). Type 0 to return to the main menu.");
@@ -330,6 +362,10 @@ private void ProcessUpdate()
             return durationInputValidated;
         }
 
+        /// <summary>
+        /// Method <c>GetStartANdFinishTimes</c> gets start and finish times and validates them.
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetStartAndFinishTimes()
         {
             Console.WriteLine("\nPlease enter the Start Time (Format: ). Type 0 to return to the Main Menu");
@@ -347,6 +383,10 @@ private void ProcessUpdate()
             return durationInput;
         }
 
+        /// <summary>
+        /// Method <c>GetPomodoros</c> gets the number of pomodoros, validates it and converts it into duration.
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetPomodoros()
         {
             Console.WriteLine("\nPlease enter the number of pomodoros you woould like to add");
@@ -359,6 +399,10 @@ private void ProcessUpdate()
             return pomodoroDuration;
         }
 
+        /// <summary>
+        /// Method <c>GetRealTimeTracking</c> creates a stop watch and calculates duration
+        /// </summary>
+        /// <returns>string</returns>
         internal string GetRealTimeTracking()
         {
             Stopwatch stopWatch = new Stopwatch();

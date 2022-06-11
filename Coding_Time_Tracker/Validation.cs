@@ -2,10 +2,15 @@
 
 namespace coding_time_tracker
 {
+   
     internal class Validation
     {
         GetUserInput getUserInput = new();
-        
+
+        /// <summary>
+        /// Method <c>NullOrEmpty</c> validates that the input is not null or empty
+        /// </summary>
+        /// <returns>string</returns>
         internal string NullOrEmpty(string commandInput)
         {
             while (string.IsNullOrEmpty(commandInput))
@@ -18,8 +23,12 @@ namespace coding_time_tracker
             return commandInput;
 
         }
-
-        internal string HabitNameChoice(string habitNameInput)
+        /// <summary>
+        /// Method <c>HabitNameInput</c> validates that the habit name is either 'c' or 'd'.
+        /// </summary>
+        /// <param name="habitNameInput"></param>
+        /// <returns>string</returns>
+        internal string HabitNameChoice(string? habitNameInput)
         {
 
             while (habitNameInput != "c" && habitNameInput != "d")
@@ -37,8 +46,12 @@ namespace coding_time_tracker
 
 
         }
-
-        internal string DateInput(string dateInput)
+        /// <summary>
+        /// Method <c>DateInput</c> validates the date format
+        /// </summary>
+        /// <param name="dateInput"></param>
+        /// <returns>string</returns>
+        internal string DateInput(string? dateInput)
         {
             while (!DateTime.TryParseExact(dateInput, "dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
             {
@@ -49,7 +62,11 @@ namespace coding_time_tracker
             return dateInput;
         }
 
-
+        /// <summary>
+        /// Method <c>DurationInput</c> validates the format of duration
+        /// </summary>
+        /// <param name="durationInput"></param>
+        /// <returns>string</returns>
         internal string DurationInput(string? durationInput)
         {
             while (!TimeSpan.TryParseExact(durationInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
@@ -65,6 +82,11 @@ namespace coding_time_tracker
             return durationInput;   
         }
 
+        /// <summary>
+        /// Method <c>Time</c>validates the start and finish times inputs
+        /// </summary>
+        /// <param name="timeInput"></param>
+        /// <returns>string</returns>
         internal string Time(string timeInput) 
         {
             while (!TimeSpan.TryParseExact(timeInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
@@ -80,6 +102,11 @@ namespace coding_time_tracker
             return timeInput;
         }
 
+        /// <summary>
+        /// Method <c>Pomodoros</c> validates pomodoros input
+        /// </summary>
+        /// <param name="pomodorosInput"></param>
+        /// <returns>int</returns>
         internal int Pomodoros(string? pomodorosInput)
         {
             while (!Int32.TryParse(pomodorosInput, out _) || string.IsNullOrEmpty(pomodorosInput) || Int32.Parse(pomodorosInput) < 0)
@@ -98,6 +125,11 @@ namespace coding_time_tracker
             return pomodoros;
         }
 
+        /// <summary>
+        /// Method <c>StartStopwatch</c> validates the start stopwatch input
+        /// </summary>
+        /// <param name="startInput"></param>
+        /// <returns>string</returns>
         internal string StartStopwatch(string? startInput)
         {
             while (string.IsNullOrEmpty(startInput))
@@ -125,6 +157,11 @@ namespace coding_time_tracker
             return startInput;
         }
 
+        /// <summary>
+        /// Method <c>EndStopwatch</c> validates end stopwatch input
+        /// </summary>
+        /// <param name="endInput"></param>
+        /// <returns></returns>
         internal string EndStopwatch(string? endInput)
         {
             while (string.IsNullOrEmpty(endInput))

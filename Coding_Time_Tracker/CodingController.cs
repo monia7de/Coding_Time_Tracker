@@ -11,7 +11,10 @@ namespace coding_time_tracker
         string connectionString = ConfigurationManager.AppSettings.Get("ConnectionString");
 
         
-
+        /// <summary>
+        /// Method <c>Get</c> retrieves all records from the database
+        /// </summary>
+        /// <returns></returns>
         internal List<Habit> Get() 
         {
             List<Habit> tableData = new List<Habit>();
@@ -52,8 +55,11 @@ namespace coding_time_tracker
             return tableData;
 
         }
-
-
+        /// <summary>
+        /// Method <c>GetById</c> selects a habit record from the database by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         internal Habit GetById(int id)
         {
             using (var connection = new SqliteConnection(connectionString))
@@ -82,7 +88,10 @@ namespace coding_time_tracker
             }
         }
 
-
+        /// <summary>
+        /// Method <c>Post</c> adds a habit record to the datatbase
+        /// </summary>
+        /// <param name="habit"></param>
         internal void Post(Habit habit)
         {
             using (var connection = new SqliteConnection(connectionString))
@@ -97,6 +106,10 @@ namespace coding_time_tracker
             }
         }
 
+        /// <summary>
+        /// Method <c>Update</c> updates a habit by id
+        /// </summary>
+        /// <param name="habit"></param>
         internal void Update(Habit habit)
         {
             using (var connection = new SqliteConnection(connectionString))
@@ -115,7 +128,10 @@ namespace coding_time_tracker
                 }
             }
         }
-
+        /// <summary>
+        /// Method <c>Delete</c> deletes a record from the database by id
+        /// </summary>
+        /// <param name="id"></param>
         internal void Delete(int id)
         {
             using (var connection = new SqliteConnection(connectionString))

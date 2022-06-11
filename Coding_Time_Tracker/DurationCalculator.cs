@@ -2,6 +2,12 @@
 {
     internal class DurationCalculator
     {
+        /// <summary>
+        /// Method <c>DurationTime</c>
+        /// </summary>
+        /// <param name="startTimeInputValue"></param>
+        /// <param name="endTimeInputValue"></param>
+        /// <returns></returns>
         internal string DurationTime(string startTimeInputValue, string endTimeInputValue)
         {
             /*
@@ -31,6 +37,11 @@
 
         }
 
+        /// <summary>
+        /// Method <c>PomodorosDuration</c> converts the number of pomodoros into equivalent time duration
+        /// </summary>
+        /// <param name="pomodorosInputValue"></param>
+        /// <returns></returns>
         internal string PomodorosDuration(int pomodorosInputValue)
         {
             var totalMinutes = pomodorosInputValue * 25;
