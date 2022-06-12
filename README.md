@@ -1,4 +1,4 @@
-**# Coding_Time_Tracker**
+**# Coding_Time_Tracker**  
 A CRUD console application that tracks the time devoted to coding as well as distractions. Developed with C# and SQLite. 
 
 # Features  
