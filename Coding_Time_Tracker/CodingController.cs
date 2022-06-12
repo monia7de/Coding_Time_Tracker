@@ -14,7 +14,7 @@ namespace coding_time_tracker
         /// <summary>
         /// Method <c>Get</c> retrieves all records from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<Habit></Habit></returns>
         internal List<Habit> Get() 
         {
             List<Habit> tableData = new List<Habit>();
@@ -125,7 +125,11 @@ namespace coding_time_tracker
                             WHERE
                                 Id = {habit.Id}
                             ";
+
+                    tableCmd.ExecuteNonQuery();
                 }
+
+                
             }
         }
         /// <summary>

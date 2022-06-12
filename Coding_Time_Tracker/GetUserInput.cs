@@ -93,8 +93,9 @@ namespace coding_time_tracker
                               
         } 
         /// <summary>
-        /// Method <c>ProcessUpdate</c> displays all records, gets the user input for the input to be updated
-        /// and validates that the input is not null or empty and that it can be converted into an int
+        /// Method <c>ProcessUpdate</c> displays all records, gets the user input that is to be updated,
+        /// validates that the input is not null or empty and that it can be converted into an int,
+        /// then passes the updated habit to the Update method in the codingController
         /// </summary>
         private void ProcessUpdate()
         {
@@ -112,9 +113,9 @@ namespace coding_time_tracker
 
             if (id == 0) MainMenu();
 
-            var coding = codingController.GetById(id);  
+            var habit = codingController.GetById(id);  
 
-            while (coding.Id == 0)
+            while (habit.Id == 0)
             {
                 Console.WriteLine($"\nRecord with id {id} doesn't exist\n");
                 ProcessUpdate();
@@ -125,6 +126,7 @@ namespace coding_time_tracker
             bool updating = true;
             while (updating == true)
             {
+                Console.WriteLine($"\nType 'n' for Name \n");
                 Console.WriteLine($"\nType 'd' for Date \n");
                 Console.WriteLine($"\nType 't' for Duration \n");
                //Console.WriteLine($"\nType 't' for StartTime \n");    + create cases & methods
@@ -137,21 +139,25 @@ namespace coding_time_tracker
 
                 switch (updateInput)
                 {
+                    case "n":
+                        habit.Name = GetHabitNameInput();
+                        break;
+
                     case "d":
-                        coding.Date = GetDateInput();
+                        habit.Date = GetDateInput();
                         break;
 
                     case "t":
-                        coding.Duration = GetDurationInput();
+                        habit.Duration = GetDurationInput();
                         break;
 
                     case "s":
                         updating = false;
                         break;
 
-                    case "0":
-                        MainMenu();
+                    case "0":                        
                         updating = false;
+                        MainMenu();
                         break;
 
                     default:
@@ -160,7 +166,7 @@ namespace coding_time_tracker
                 }
             }
 
-            codingController.Update(coding);
+            codingController.Update(habit);
             MainMenu();
 
         }
@@ -415,7 +421,7 @@ namespace coding_time_tracker
 
             stopWatch.Start();
 
-            Console.WriteLine("\nPlease type 'e' to stop the Stopwatch or press 0 to return to the Main Menu");
+            Console.WriteLine("\nPlease type 'e' to stop the Stopwatch or press 0 to return to the Main Menu.");
             string endInput = Console.ReadLine();
 
             if (endInput == "0") MainMenu();

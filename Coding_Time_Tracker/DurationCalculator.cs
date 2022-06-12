@@ -14,8 +14,11 @@
 
             var diff = endTimeInputValidated - startTimeInputValidated;   //in the future do this for 12h time
 
-            return diff.ToString(); 
-            
+
+            string durationTime = String.Format("{0:00}:{1:00}", diff.Hours, diff.Minutes);
+
+            return durationTime;  // How to add a format: "h mm" without seconds using return diff.ToString method?
+                                    
         }
 
         /// <summary>
@@ -27,10 +30,15 @@
         {
             var totalMinutes = pomodorosInputValidated * 25;
             var pomodoroDuration = TimeSpan.FromMinutes(totalMinutes);
-            return pomodoroDuration.ToString();
-            
-            //???how to format the above into hours and minutes?  return String.Format("{0:00}:{ 1:00}", totalMinutes / 60, totalMinutes % 60);
-                      
+
+            string durationTime = String.Format("{0:00}:{1:00}", pomodoroDuration.Hours, pomodoroDuration.Minutes);
+
+            return durationTime;  // How to add a format: "h mm" without seconds using return pomodoroDuration.ToString method?
+
+
+
+
+           
         }
     }
 }

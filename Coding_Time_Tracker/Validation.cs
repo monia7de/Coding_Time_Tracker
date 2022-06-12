@@ -69,7 +69,7 @@ namespace coding_time_tracker
         /// <returns>string</returns>
         internal string DurationInput(string durationInput)
         {
-            while (!TimeSpan.TryParseExact(durationInput, @"H\:mm", CultureInfo.InvariantCulture, out _))
+            while (!TimeSpan.TryParseExact(durationInput, @"h\:mm", CultureInfo.InvariantCulture, out _))
             {
                 Console.WriteLine("\n\nDuration invalid. Please enter the duration (Format: hh:mm) or type 0 to return to Main Menu\n\n");
                 durationInput = Console.ReadLine();
