@@ -274,7 +274,7 @@ namespace coding_time_tracker
         /// <returns>string</returns>
         internal string GetDateInput()
         {
-            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the main menu. \n\n");
+            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the Main Menu. \n\n");
 
             string dateInput = Console.ReadLine();
 
@@ -287,7 +287,7 @@ namespace coding_time_tracker
 
         /// <summary>
         /// Method <c>GetDurationInput</c> gets duration input by offering a choice of entering different types of records,
-        /// which are used to calculate TImespan duration that is then converted into a string.
+        /// calculates duration that is then converted into a string.
         /// </summary>
         /// <returns>string</returns>
         internal string GetDurationInput()
@@ -357,26 +357,26 @@ namespace coding_time_tracker
 
             if (durationInput == "0") MainMenu();
 
-            string durationInputValidated = validation.Time(durationInput);
+            string durationInputValidated = validation.DurationInput(durationInput);
                      
             return durationInputValidated;
         }
 
         /// <summary>
-        /// Method <c>GetStartANdFinishTimes</c> gets start and finish times and validates them.
+        /// Method <c>GetStartAndFinishTimes</c> gets start and finish times and validates them.
         /// </summary>
         /// <returns>string</returns>
-        internal string GetStartAndFinishTimes()
+        internal string GetStartAndFinishTimes() // in the future --> add conversion from 12h input to 24h & what happens if the end time is a few days after the start time? DateTime? 
         {
-            Console.WriteLine("\nPlease enter the Start Time (Format: ). Type 0 to return to the Main Menu");
+            Console.WriteLine("\nPlease enter the Start Time (Format:hh:mm ). Type 0 to return to the Main Menu");
             string startTimeInput = Console.ReadLine();
 
-            string startTimeInputValidated = validation.Time(startTimeInput);
+            TimeOnly startTimeInputValidated = validation.Time(startTimeInput);
 
-            Console.WriteLine("\nPlease enter the End Time (Format: ). Type 0 to return to the Main Menu");
+            Console.WriteLine("\nPlease enter the End Time (Format:hh:mm ). Type 0 to return to the Main Menu");
             string endTimeInput = Console.ReadLine();
 
-            string endTimeInputValidated = validation.Time(endTimeInput);
+            TimeOnly endTimeInputValidated = validation.Time(endTimeInput);
 
             string durationInput = durationCalculator.DurationTime(startTimeInputValidated, endTimeInputValidated);
 
@@ -384,12 +384,12 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>GetPomodoros</c> gets the number of pomodoros, validates it and converts it into duration.
+        /// Method <c>GetPomodoros</c> gets the number of pomodoros, validates the input and converts it into duration.
         /// </summary>
         /// <returns>string</returns>
         internal string GetPomodoros()
         {
-            Console.WriteLine("\nPlease enter the number of pomodoros you woould like to add");
+            Console.WriteLine("\nPlease enter the number of pomodoros you would like to add");
             string pomodorosInput = Console.ReadLine();
 
             int pomodorosInputValidated = validation.Pomodoros(pomodorosInput);
@@ -426,11 +426,9 @@ namespace coding_time_tracker
             
             TimeSpan ts = stopWatch.Elapsed;
 
-            string elapsedTime = String.Format("{0:00}:{1:00}",     //:{2:00}.{3:00}
-            ts.Hours, ts.Minutes / 10);
-            // Console.WriteLine("RunTime " + elapsedTime); CW TO TEST
-            //Console.WriteLine("Time elapsed: {0:hh\\:mm\\:ss}", stopwatch.Elapsed);
-
+            string elapsedTime = String.Format("{0:00}:{1:00}",    
+            ts.Hours, ts.Minutes);
+        
             return elapsedTime;
         }
 

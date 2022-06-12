@@ -3,56 +3,34 @@
     internal class DurationCalculator
     {
         /// <summary>
-        /// Method <c>DurationTime</c>
+        /// Method <c>DurationTime</c> calculates duration from start and end time and converts the duration as string
         /// </summary>
         /// <param name="startTimeInputValue"></param>
         /// <param name="endTimeInputValue"></param>
-        /// <returns></returns>
-        internal string DurationTime(string startTimeInputValue, string endTimeInputValue)
+        /// <returns>string</returns>
+        internal string DurationTime(TimeOnly startTimeInputValidated, TimeOnly endTimeInputValidated)
         {
-            /*
-            string startTime = startTimeInputValue;
-            string endTime = endTimeInputValue;
+           
 
+            var diff = endTimeInputValidated - startTimeInputValidated;   //in the future do this for 12h time
+
+            return diff.ToString(); 
             
-            TimeSpan durationInput = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
-
-            TimeOnly durationInputValue = TimeOnly.FromDateTime(durationInput);
-
-
-            return durationInputValue.ToString(); //.ToString("t)
-            */
-
-            //if for <
-
-            var startTime = TimeOnly.Parse(startTimeInputValue);  // or Parse(String,IFormatProvider, DateTimeStyles)
-            var endTime = TimeOnly.Parse(endTimeInputValue); 
-
-            TimeSpan durationInput = endTime - startTime;
-
-            // TimeSpan duration = public static TimeSpan operator - (TimeOnly startTime, TimeOnly endTime);
-            return durationInput.ToString();    
-
-
-
         }
 
         /// <summary>
         /// Method <c>PomodorosDuration</c> converts the number of pomodoros into equivalent time duration
         /// </summary>
         /// <param name="pomodorosInputValue"></param>
-        /// <returns></returns>
-        internal string PomodorosDuration(int pomodorosInputValue)
+        /// <returns>string</returns>
+        internal string PomodorosDuration(int pomodorosInputValidated)
         {
-            var totalMinutes = pomodorosInputValue * 25;
-            return String.Format("{0:00}:{ 1:00}", totalMinutes / 60, totalMinutes % 60);
+            var totalMinutes = pomodorosInputValidated * 25;
+            var pomodoroDuration = TimeSpan.FromMinutes(totalMinutes);
+            return pomodoroDuration.ToString();
             
-            // Console.WriteLine("{0:00}:{1:00}", totalMinutes / 60, totalMinutes % 60);   CW TO TEST
-            //var time = TimeSpan.FromMinutes(totalMinutes);
-            //Console.WriteLine("{0:00}:{1:00}", (int)time.TotalHours, time.Minutes);
-
-
-
+            //???how to format the above into hours and minutes?  return String.Format("{0:00}:{ 1:00}", totalMinutes / 60, totalMinutes % 60);
+                      
         }
     }
 }

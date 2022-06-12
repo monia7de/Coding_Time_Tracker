@@ -53,7 +53,7 @@ namespace coding_time_tracker
         /// <returns>string</returns>
         internal string DateInput(string? dateInput)
         {
-            while (!DateTime.TryParseExact(dateInput, "dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
+            while (!DateTime.TryParseExact(dateInput, "dd-MM-yy", new CultureInfo("en-GB"), DateTimeStyles.None, out _))
             {
                 Console.WriteLine("\n\nNot a valid date. Please enter the date with the format: dd-mm-yy.\n\n");
                 dateInput = Console.ReadLine();
@@ -67,11 +67,11 @@ namespace coding_time_tracker
         /// </summary>
         /// <param name="durationInput"></param>
         /// <returns>string</returns>
-        internal string DurationInput(string? durationInput)
+        internal string DurationInput(string durationInput)
         {
-            while (!TimeSpan.TryParseExact(durationInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
+            while (!TimeSpan.TryParseExact(durationInput, @"H\:mm", CultureInfo.InvariantCulture, out _))
             {
-                Console.WriteLine("\n\nDuration invalid. Please enter the duration (Format: hh:mm) or type 0 to return to main menu\n\n");
+                Console.WriteLine("\n\nDuration invalid. Please enter the duration (Format: hh:mm) or type 0 to return to Main Menu\n\n");
                 durationInput = Console.ReadLine();
                 if (durationInput == "0")
                  {
@@ -87,9 +87,9 @@ namespace coding_time_tracker
         /// </summary>
         /// <param name="timeInput"></param>
         /// <returns>string</returns>
-        internal string Time(string timeInput) 
+        internal TimeOnly Time(string timeInput) 
         {
-            while (!TimeSpan.TryParseExact(timeInput, "h\\:mm", CultureInfo.InvariantCulture, out _))
+            while (!TimeOnly.TryParseExact(timeInput, @"H\:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
                 Console.WriteLine("\n\nTime invalid. Please enter the time again (Format: hh:mm) or type 0 to return to main menu\n\n");
                 timeInput = Console.ReadLine();
@@ -99,11 +99,12 @@ namespace coding_time_tracker
                  }
                 
             }
-            return timeInput;
+            var time = TimeOnly.Parse(timeInput); 
+            return time;
         }
 
         /// <summary>
-        /// Method <c>Pomodoros</c> validates pomodoros input
+        /// Method <c>Pomodoros</c> validates pomodoros input and converts it into an integer
         /// </summary>
         /// <param name="pomodorosInput"></param>
         /// <returns>int</returns>
@@ -121,7 +122,6 @@ namespace coding_time_tracker
                 getUserInput.MainMenu();
             }
             
-
             return pomodoros;
         }
 
