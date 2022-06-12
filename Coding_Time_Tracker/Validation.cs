@@ -53,9 +53,9 @@ namespace coding_time_tracker
         /// <returns>string</returns>
         internal string DateInput(string? dateInput)
         {
-            while (!DateTime.TryParseExact(dateInput, "dd-MM-yy", new CultureInfo("en-GB"), DateTimeStyles.None, out _))
+            while (!DateTime.TryParseExact(dateInput, "dd-MM-yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out _))
             {
-                Console.WriteLine("\n\nNot a valid date. Please enter the date with the format: dd-mm-yy.\n\n");
+                Console.WriteLine("\n\nNot a valid date. Please enter the date with the format: dd-mm-yyyy.\n\n");
                 dateInput = Console.ReadLine();
             }
 
@@ -186,6 +186,42 @@ namespace coding_time_tracker
                 
             }
             return endInput;
+        }
+
+        
+        internal int ValidateMonth(string monthInput)
+        {
+            while (
+                !Int32.TryParse(monthInput, out _)
+                || string.IsNullOrEmpty(monthInput)
+                || Int32.Parse(monthInput) < 0
+                || Int32.Parse(monthInput) > 12)
+            {
+                Console.WriteLine("\nInvalid Month. Please type month(MM)\n");
+                monthInput = Console.ReadLine();
+            }
+
+            var month = Int32.Parse(monthInput);
+
+
+            return month;
+        }
+
+        internal int ValidateYear(string? yearInput)
+        {
+            while (
+            !Int32.TryParse(yearInput, out _)
+            || string.IsNullOrEmpty(yearInput)
+            || Int32.Parse(yearInput) < 2000
+            || Int32.Parse(yearInput) > 9999)
+            {
+                Console.WriteLine("\nInvalid Year. Please type year (a number from 2000 to 9999)\n");
+                yearInput = Console.ReadLine();
+            }
+
+            var year = Int32.Parse(yearInput);
+
+            return year;
         }
     }
 }

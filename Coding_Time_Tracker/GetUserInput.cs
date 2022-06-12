@@ -172,46 +172,18 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>ProcessReport</c> gets the user input for the period they want the report for and validates it
+        /// Method <c>ProcessReport</c> gets the user input for a selected month pf a chosen year and passes it to GetByMonthAndYear
         /// </summary>
         private void ProcessReport()
         {
-            Console.WriteLine("Please type month (MM");
-            string monthInput = Console.ReadLine();
 
-            while(
-                !Int32.TryParse(monthInput, out _) 
-                || string.IsNullOrEmpty(monthInput)
-                || Int32.Parse(monthInput) < 0
-                || Int32.Parse(monthInput) > 12)
-            {
-                Console.WriteLine("\nInvalid Month\n");
-                monthInput = Console.ReadLine();
+            var yearAndMonth = GetMonthAndYearInput();
+            
+            codingController.GetByMonthAndYear(yearAndMonth);
 
-                var month = Int32.Parse(monthInput);
-
-                Console.WriteLine("Please type year (a number from 2000 to 9999");
-
-                string yearInput = Console.ReadLine();
-
-                while (
-               !Int32.TryParse(yearInput, out _)
-               || string.IsNullOrEmpty(yearInput)
-               || Int32.Parse(yearInput) < 2000
-               || Int32.Parse(yearInput) > 9999)
-                {
-                    Console.WriteLine("\nInvalid Year\n");
-                    yearInput = Console.ReadLine();
-                }
-
-                var year = Int32.Parse(yearInput);
-
-                var yearMonth = new DateTime(year, month, 01, 00, 00, 00);
-
-                var allRecords = codingController.Get();
-
-            }
         }
+
+        
         /// <summary>
         /// Method <c>ProcessDelete</c> displays all records, gets user input for the record to be deleted and validates it
         /// </summary>
@@ -280,7 +252,7 @@ namespace coding_time_tracker
         /// <returns>string</returns>
         internal string GetDateInput()
         {
-            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yy). Type 0 to return to the Main Menu. \n\n");
+            Console.WriteLine("\nPlease enter the date: (Format: dd-mm-yyyy). Type 0 to return to the Main Menu. \n\n");
 
             string dateInput = Console.ReadLine();
 
@@ -438,7 +410,33 @@ namespace coding_time_tracker
             return elapsedTime;
         }
 
+        /// <summary>
+        /// Method <c>GetMonthAndYear</c> gets user input for month and year, validates it
+        /// </summary>
+        /// <returns></returns>
+        private DateTime GetMonthAndYearInput()
+        {
+            Console.WriteLine("Please type month (MM)");
+            string monthInput = Console.ReadLine();
 
+            int month = validation.ValidateMonth(monthInput);   
+
+            Console.WriteLine("Please type year (a number from 2000 to 9999");
+
+            string yearInput = Console.ReadLine();
+
+            int year = validation.ValidateYear(yearInput);
+
+
+            var yearMonth = new DateTime(year, month, 01, 00, 00, 00);
+
+            //yearMonth.ToString("yy MM");
+
+            return yearMonth; 
+            
+
+           
+        }
 
 
 

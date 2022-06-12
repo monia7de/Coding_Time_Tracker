@@ -56,7 +56,7 @@ namespace coding_time_tracker
 
         }
         /// <summary>
-        /// Method <c>GetById</c> selects a habit record from the database by id
+        /// Method <c>GetById</c> retrieves a habit record from the database by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -151,6 +151,52 @@ namespace coding_time_tracker
             }
         }
 
-     
+        /// <summary>
+        /// Method <c>GetByMonthAndYear</c> retrieves all records for a selected month of a given year
+        /// </summary>
+        /// <param name="monthAndYear"></param>
+        /// <returns>List<Habit></returns>
+        internal List<Habit> GetByMonthAndYear(DateTime yearAndMonth)
+        {
+            List<Habit> tableDataByMonthAndYear = new List<Habit>();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE Date LIKE '%{yearAndMonth.Month.ToString()}' AND Date LIKE '%{yearAndMonth.Year.ToString()}'";
+                    //$"SELECT * FROM habits WHERE Date LIKE '%{yearAndMonth.Month.ToString()}' - '{yearAndMonth.Year.ToString()}'";
+                    //$"SELECT * FROM habits Where Date CONTAINS '{yearAndMonth.Month.ToString()}'AND Date CONTAINS '{yearAndMonth.Year.ToString()}'";      
+
+                    using (var reader = tableCmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                tableDataByMonthAndYear.Add(
+                                    new Habit
+                                    {
+                                        Id = reader.GetInt32(0),
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n\nNo rows found.\n\n");
+                        }
+
+                    }
+                }
+                Console.WriteLine("\n\n");
+            }
+
+            TableVisualisation.ShowTable(tableDataByMonthAndYear);
+
+            return tableDataByMonthAndYear;
+        }   
     }
 }
