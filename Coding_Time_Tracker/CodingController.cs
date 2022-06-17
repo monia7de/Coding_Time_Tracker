@@ -158,19 +158,17 @@ namespace coding_time_tracker
         /// <returns>List<Habit></returns>
         internal List<Habit> GetByMonthAndYear(DateTime yearAndMonth)
         {
-            var nextMonth = yearAndMonth.AddMonths(1);
+          
+            string year = yearAndMonth.ToString("yyyy");
+            string month = yearAndMonth.ToString("MM");
 
-            List<Habit> tableDataByMonthAndYear = new List<Habit>();
+            List <Habit> tableDataByMonthAndYear = new List<Habit>();
             using (var connection = new SqliteConnection(connectionString))
             {
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    tableCmd.CommandText = //$"SELECT * FROM habits WHERE Date >= '{yearAndMonth}' AND Date < '{nextMonth}'";
-                                           //$"SELECT Id FROM habits WHERE MONTH(Date) = '{yearAndMonth.Month}' AND YEAR(Date)= '{yearAndMonth.Year}'";
-                                           //$"SELECT * FROM habits WHERE strftime('%m', `Date`) = '{yearAndMonth.Month}'";
-                                           //$"SELECT * from habits WHERE Date BETWEEN '{2022-04-01}' AND '{2022-04-31}'";
-                                           $"SELECT * from habits WHERE Date BETWEEN '{yearAndMonth}' AND '{nextMonth}'";
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE strftime('%Y', Date) = '{year}' AND strftime('%m', Date) = '{month}'";
 
                     using (var reader = tableCmd.ExecuteReader())
                     {
