@@ -415,7 +415,7 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>GetMonthAndYear</c> gets user input for month and year, validates it
+        /// Method <c>GetMonthAndYear</c> gets user input for month and year, validates it and creates a DateTime object out of it.
         /// </summary>
         /// <returns></returns>
         private DateTime GetMonthAndYearInput()

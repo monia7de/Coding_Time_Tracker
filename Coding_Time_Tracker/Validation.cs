@@ -47,7 +47,7 @@ namespace coding_time_tracker
 
         }
         /// <summary>
-        /// Method <c>DateInput</c> validates the date format
+        /// Method <c>DateInput</c> validates the date format and changes it to "yyyy-MM-dd"
         /// </summary>
         /// <param name="dateInput"></param>
         /// <returns>string</returns>
@@ -59,7 +59,12 @@ namespace coding_time_tracker
                 dateInput = Console.ReadLine();
             }
 
-            return dateInput;
+         
+            DateTime temp = DateTime.ParseExact(dateInput, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            var validDateInput = temp.ToString("yyyy-MM-dd");
+
+            return validDateInput;
+            
         }
 
         /// <summary>

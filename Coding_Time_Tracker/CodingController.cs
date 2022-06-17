@@ -168,8 +168,10 @@ namespace coding_time_tracker
                     connection.Open();
                     tableCmd.CommandText = //$"SELECT * FROM habits WHERE Date >= '{yearAndMonth}' AND Date < '{nextMonth}'";
                                            //$"SELECT Id FROM habits WHERE MONTH(Date) = '{yearAndMonth.Month}' AND YEAR(Date)= '{yearAndMonth.Year}'";
-                                           $"SELECT * FROM habits WHERE strftime('%m', `Date`) = '{yearAndMonth.Month}'";
-                   
+                                           //$"SELECT * FROM habits WHERE strftime('%m', `Date`) = '{yearAndMonth.Month}'";
+                                           //$"SELECT * from habits WHERE Date BETWEEN '{2022-04-01}' AND '{2022-04-31}'";
+                                           $"SELECT * from habits WHERE Date BETWEEN '{yearAndMonth}' AND '{nextMonth}'";
+
                     using (var reader = tableCmd.ExecuteReader())
                     {
                         if (reader.HasRows)
