@@ -324,7 +324,7 @@ namespace coding_time_tracker
 
         
         /// <summary>
-        /// Method <c>GetDurationType</c> gets user duration and validates it
+        /// Method <c>GetDurationType</c> gets user duration input and validates it
         /// </summary>
         /// <returns>string</returns>
         internal string GetDurationType()
@@ -344,15 +344,19 @@ namespace coding_time_tracker
         /// Method <c>GetStartAndFinishTimes</c> gets start and finish times and validates them.
         /// </summary>
         /// <returns>string</returns>
-        internal string GetStartAndFinishTimes() // in the future --> add conversion from 12h input to 24h & what happens if the end time is a few days after the start time? DateTime? 
+        internal string GetStartAndFinishTimes() 
         {
             Console.WriteLine("\nPlease enter the Start Time (Format:hh:mm ). Type 0 to return to the Main Menu");
             string startTimeInput = Console.ReadLine();
+
+            if (startTimeInput == "0") MainMenu();
 
             TimeOnly startTimeInputValidated = validation.Time(startTimeInput);
 
             Console.WriteLine("\nPlease enter the End Time (Format:hh:mm ). Type 0 to return to the Main Menu");
             string endTimeInput = Console.ReadLine();
+
+            if (startTimeInput == "0") MainMenu();
 
             TimeOnly endTimeInputValidated = validation.Time(endTimeInput);
 
@@ -421,7 +425,7 @@ namespace coding_time_tracker
 
             int month = validation.ValidateMonth(monthInput);   
 
-            Console.WriteLine("Please type year (a number from 2000 to 9999");
+            Console.WriteLine("Please type year (a number from 2000 to 9999)");
 
             string yearInput = Console.ReadLine();
 
@@ -430,7 +434,7 @@ namespace coding_time_tracker
 
             var yearMonth = new DateTime(year, month, 01, 00, 00, 00);
 
-            //yearMonth.ToString("yy MM");
+            
 
             return yearMonth; 
             

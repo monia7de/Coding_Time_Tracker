@@ -89,7 +89,7 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>Post</c> adds a habit record to the datatbase
+        /// Method <c>Post</c> adds a habit record to the database
         /// </summary>
         /// <param name="habit"></param>
         internal void Post(Habit habit)
@@ -158,15 +158,16 @@ namespace coding_time_tracker
         /// <returns>List<Habit></returns>
         internal List<Habit> GetByMonthAndYear(DateTime yearAndMonth)
         {
+            var nextMonth = yearAndMonth.AddMonths(1);
+
             List<Habit> tableDataByMonthAndYear = new List<Habit>();
             using (var connection = new SqliteConnection(connectionString))
             {
                 using (var tableCmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    tableCmd.CommandText = $"SELECT * FROM habits WHERE Date LIKE '%{yearAndMonth.Month.ToString()}' AND Date LIKE '%{yearAndMonth.Year.ToString()}'";
-                    //$"SELECT * FROM habits WHERE Date LIKE '%{yearAndMonth.Month.ToString()}' - '{yearAndMonth.Year.ToString()}'";
-                    //$"SELECT * FROM habits Where Date CONTAINS '{yearAndMonth.Month.ToString()}'AND Date CONTAINS '{yearAndMonth.Year.ToString()}'";      
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE Date >= '{yearAndMonth}' AND Date < '{nextMonth}'";
+                                           //$"SELECT Id FROM habits WHERE MONTH(Date) = '{yearAndMonth.Month}' AND YEAR(Date)= '{yearAndMonth.Year}'";
 
                     using (var reader = tableCmd.ExecuteReader())
                     {

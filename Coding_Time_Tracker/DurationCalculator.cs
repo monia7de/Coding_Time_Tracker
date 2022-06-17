@@ -12,12 +12,12 @@
         {
            
 
-            var diff = endTimeInputValidated - startTimeInputValidated;   //in the future do this for 12h time
+            var diff = endTimeInputValidated - startTimeInputValidated;   
 
 
             string durationTime = String.Format("{0:00}:{1:00}", diff.Hours, diff.Minutes);
 
-            return durationTime;  // How to add a format: "h mm" without seconds using return diff.ToString method?
+            return durationTime;  // How to add a format: "h mm" without seconds, using 'return diff.ToString()' method?
                                     
         }
 
@@ -33,7 +33,7 @@
 
             string durationTime = String.Format("{0:00}:{1:00}", pomodoroDuration.Hours, pomodoroDuration.Minutes);
 
-            return durationTime;  // How to add a format: "h mm" without seconds using return pomodoroDuration.ToString method?
+            return durationTime;  // How to add a format: "h mm" without seconds, using 'return pomodoroDuration.ToString()' method?
 
 
 

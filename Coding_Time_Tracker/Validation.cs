@@ -83,7 +83,7 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>Time</c>validates the start and finish times inputs
+        /// Method <c>Time</c>validates the start and finish time inputs
         /// </summary>
         /// <param name="timeInput"></param>
         /// <returns>string</returns>
