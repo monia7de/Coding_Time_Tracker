@@ -12,6 +12,9 @@ A CRUD console application that tracks the time devoted to coding as well as dis
 * 'static' keyword applied to instantiated classes without which the app started with an infinite loop with one class creating an instance of another, which in turn, tried to create an instance of the first one  
 * SQL and valid formats for SQlite date and time values
 
+# Future developments
+* Add the possibility of updating the start & finish times as well as the number of pomodoros entered
+
 # Lessons Learned  
 * the importance of git commit messages  
 * strftime('%Y-%m-%d', ...)
