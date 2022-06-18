@@ -29,7 +29,7 @@ namespace coding_time_tracker
                 Console.WriteLine("Type 2 to Insert Record.");
                 Console.WriteLine("Type 3 to Update Record.");
                 Console.WriteLine("Type 4 to Delete Record.");
-                Console.WriteLine("Type 5 to View Daily/ Weekly/ Monthly/ Yearly Report.");
+                Console.WriteLine("Type 5 to View a report for Today/ Last Week or any chosen Day, Month or Year.");
                 Console.WriteLine("--------------------------------------\n");
 
                 string commandInput = Console.ReadLine();
