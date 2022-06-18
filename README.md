@@ -15,11 +15,11 @@ A CRUD console application that tracks the time devoted to coding as well as dis
 # Lessons Learned  
 * the importance of git commit messages  
 * strftime('%Y-%m-%d', ...)
-to be continued  
+* to be continued  
 
 # Areas to Improve  
 * commit messages
 * spaghetti code
-to be continued  
+* to be continued  
 
 
