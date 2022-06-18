@@ -2,9 +2,9 @@
 A CRUD console application that tracks the time devoted to coding as well as distractions. Developed with C# and SQLite. 
 
 # Features  
-In addition to performing CRUD operations, the user can view daily/ weekly/ monthly and yearly reports. Reporting uses ConsoleTableExt library to display records in   a more user-friendly way.  
-User can update individual properties of records selected by id.  
-Allows entering different types of input: duration; start and stop times of a completed session, number of pomodoros and real-time tracking of a session with a stopwatch that is in the application. The input is automatically converted into duration.  
+[x] In addition to performing CRUD operations, the user can view daily/ weekly/ monthly and yearly reports. Reporting uses ConsoleTableExt library to display records in   a more user-friendly way.  
+[x] User can update individual properties of records selected by id.  
+[x] Allows entering different types of input: duration; start and stop times of a completed session, number of pomodoros and real-time tracking of a session with a stopwatch that is in the application. The input is automatically converted into duration.  
 
 # Challenges  
 DateTime  
