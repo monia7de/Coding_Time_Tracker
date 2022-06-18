@@ -2,7 +2,7 @@
 A CRUD console application that tracks the time devoted to coding as well as distractions. Developed with C# and SQLite. 
 
 # Features  
-* User can Insert, View, Update and Delete Records. 
+* User can Insert, View, Update and Delete records. 
 * The app allows user to view their records for today and from last week. It also has the options of displaying reports for any chosen day, month and year. Reporting uses ConsoleTableExt library to display records in a more user-friendly way.  
 * User can update individual properties of records selected by id.  
 * The app allows entering different types of input: duration; start and stop times of a completed session, number of pomodoros and real-time tracking of a session with a stopwatch that is in the application. The input is automatically converted into duration.  
