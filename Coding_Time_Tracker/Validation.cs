@@ -230,6 +230,22 @@ namespace coding_time_tracker
             return year;
         }
 
-        
+        internal int ValidateDay(string? dayInput)
+        {
+            while (
+                 !Int32.TryParse(dayInput, out _)
+                 || string.IsNullOrEmpty(dayInput)
+                 || Int32.Parse(dayInput) < 0
+                 || Int32.Parse(dayInput) > 31)                //This app does not check for the valid number of days in a month
+            {
+                Console.WriteLine("\nInvalid Day. Please type month(dd)\n");
+                dayInput = Console.ReadLine();
+            }
+
+            var day = Int32.Parse(dayInput);
+
+
+            return day;
+        }
     }
 }

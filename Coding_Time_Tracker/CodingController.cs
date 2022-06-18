@@ -150,9 +150,167 @@ namespace coding_time_tracker
                 }
             }
         }
+        /// <summary>
+        /// Method <c>GetByToday</c> retrieves all records for today and displays them in a table
+        /// </summary>
+        /// <param name="today"></param>
+        /// <returns>List<Habit></returns>
+        internal List<Habit> GetByToday()
+        {
+            var today = DateTime.Today;
+            string day = today.ToString("dd");
+            string year = today.ToString("yyyy");
+            string month = today.ToString("MM");
+
+            List<Habit> tableDataByToday = new List<Habit>();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE strftime('%Y', Date) = '{year}' AND strftime('%m', Date) = '{month}'AND strftime('%d', Date) = '{day}'";
+
+
+                    using (var reader = tableCmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                tableDataByToday.Add(
+                                    new Habit
+                                    {
+                                        Id = reader.GetInt32(0),
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n\nNo rows found.\n\n");
+                        }
+
+                    }
+                }
+                Console.WriteLine("\n\n");
+            }
+
+            TableVisualisation.ShowTable(tableDataByToday);
+
+            return tableDataByToday;
+
+        }
+        /// <summary>
+        /// Method <c>GetByThisWeek</c>retrieves all records for the last 7 days and displays them in a table
+        /// </summary>
+        /// <returns>List<Habit></returns>
+        internal List<Habit> GetByThisWeek()
+        {
+            var today = DateTime.Today;
+            var lastWeek = today.AddDays(-7);
+
+            var todayString = today.ToString("yyyy-MM-dd");
+            var lastWeekString = lastWeek.ToString("yyyy-MM-dd");
+
+            
+            List<Habit> tableDataByThisWeek = new List<Habit>();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE strftime('%Y-%m-%d', Date) BETWEEN '{lastWeekString}' AND '{todayString}'";
+                        
+                    using (var reader = tableCmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                tableDataByThisWeek.Add(
+                                    new Habit
+                                    {
+                                        Id = reader.GetInt32(0),
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n\nNo rows found.\n\n");
+                        }
+
+                    }
+                }
+                Console.WriteLine("\n\n");
+            }
+
+            TableVisualisation.ShowTable(tableDataByThisWeek);
+
+            return tableDataByThisWeek;
+
+        }
+
 
         /// <summary>
-        /// Method <c>GetByMonthAndYear</c> retrieves all records for a selected month of a given year
+        /// Method <c>GetByDay</c> retrieves all records for a selected day of a given month and year and displays them in a table
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns>List<Habit></returns>
+        internal List<Habit> GetByDay(DateTime yearMonthDay)
+        {
+            
+            string year = yearMonthDay.ToString("yyyy");
+            string month = yearMonthDay.ToString("MM");
+            string day = yearMonthDay.ToString("dd");
+
+            List<Habit> tableDataByDay = new List<Habit>();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE strftime('%Y', Date) = '{year}' AND strftime('%m', Date) = '{month}'AND strftime('%d', Date) = '{day}'";
+                   
+
+                    using (var reader = tableCmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                tableDataByDay.Add(
+                                    new Habit
+                                    {
+                                        Id = reader.GetInt32(0),
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n\nNo rows found.\n\n");
+                        }
+
+                    }
+                }
+                Console.WriteLine("\n\n");
+            }
+
+            TableVisualisation.ShowTable(tableDataByDay);
+
+            return tableDataByDay;
+        }
+
+
+        /// <summary>
+        /// Method <c>GetByMonthAndYear</c> retrieves all records for a selected month of a given year and displays them in a table
         /// </summary>
         /// <param name="monthAndYear"></param>
         /// <returns>List<Habit></returns>
@@ -199,6 +357,53 @@ namespace coding_time_tracker
             TableVisualisation.ShowTable(tableDataByMonthAndYear);
 
             return tableDataByMonthAndYear;
-        }   
+        }
+
+        /// <summary>
+        /// Method <c>GetByYear</c> retrieves all records for a selected year and displays them in a table
+        /// </summary>
+        /// <param name="year"></param>       
+        /// <returns>List<Habit></returns>
+        internal List<Habit> GetByYear(string year)
+        {
+            List<Habit> tableDataByYear = new List<Habit>();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText = $"SELECT * FROM habits WHERE strftime('%Y', Date) = '{year}'";
+
+                    using (var reader = tableCmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                tableDataByYear.Add(
+                                    new Habit
+                                    {
+                                        Id = reader.GetInt32(0),
+                                        Name = reader.GetString(1),
+                                        Date = reader.GetString(2),
+                                        Duration = reader.GetString(3)
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n\nNo rows found.\n\n");
+                        }
+
+                    }
+                }
+                Console.WriteLine("\n\n");
+            }
+
+            TableVisualisation.ShowTable(tableDataByYear);
+
+            return tableDataByYear;
+        }
     }
+    
 }

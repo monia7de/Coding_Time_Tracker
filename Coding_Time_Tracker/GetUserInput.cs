@@ -172,7 +172,7 @@ namespace coding_time_tracker
         }
 
         /// <summary>
-        /// Method <c>ProcessReport</c> gets the user input for a the type of report they want to view it to the CondingController class 
+        /// Method <c>ProcessReport</c> gets the user input for a the type of report they want to view, takes user input if needed and passes it to the CodingController class
         /// </summary>
         private void ProcessReport()
         {
@@ -181,11 +181,12 @@ namespace coding_time_tracker
 
             while (choosingReportType == true)
             {
-                Console.WriteLine("\nSelect the type of report you would like to view?");
-                Console.WriteLine("\nType '1' to view a daily report");
-                Console.WriteLine("\nType '2' to view a weekly report");
-                Console.WriteLine("\nType '3' to view a monthly report");
-                Console.WriteLine("\nType '4' to view a yearly report");
+                Console.WriteLine("\n\nSelect the type of report you would like to view?");
+                Console.WriteLine("\nType '1' to view a report for today");
+                Console.WriteLine("Type '2' to view a report for this week");
+                Console.WriteLine("Type '3' to view a report for any day");
+                Console.WriteLine("Type '4' to view a report for any month");
+                Console.WriteLine("Type '5' to view a a report for any year");
                 Console.WriteLine("Type '0' to Go Back to the Main Menu");
 
                 reportInput = Console.ReadLine();
@@ -198,36 +199,42 @@ namespace coding_time_tracker
                         break;
 
                     case "1":
-                        choosingReportType = false;
+                        choosingReportType = false;   
+                        codingController.GetByToday();
                         break;
 
                     case "2":
                         choosingReportType = false;
+                        codingController.GetByThisWeek();
                         break;
 
                     case "3":
+                        choosingReportType = false;
+                        var yearMonthDay = GetDayInput();
+                        codingController.GetByDay(yearMonthDay);
+                        break;
+                                           
+                    case "4":
                         choosingReportType = false;
                         var yearAndMonth = GetMonthAndYearInput();
                         codingController.GetByMonthAndYear(yearAndMonth);
                         break;
 
-                    case "4":
+                    case "5":
                         choosingReportType = false;
                         var year = GetYearInput();
+                        codingController.GetByYear(year);
                         break;
 
                     default:
-                        Console.WriteLine($"\nInvalid command. Please type in a number between 1-4 or type 0 to return to the Main Menu");
+                        Console.WriteLine($"\nInvalid command. Please type in a number between 1-5 or type 0 to return to the Main Menu");
                         break;
                 }
 
             }
 
-
-
         }
-
-        
+                
         /// <summary>
         /// Method <c>ProcessDelete</c> displays all records, gets user input for the record to be deleted and validates it
         /// </summary>
@@ -459,6 +466,38 @@ namespace coding_time_tracker
         }
 
         /// <summary>
+        /// Method <c>GetDayInput</c> gets user input for a day, month and year, validates thet and creates a DateTime object out of it.
+        /// </summary>
+        /// <returns></returns>
+        private DateTime GetDayInput()
+        {
+
+            Console.WriteLine("Please type day (dd) you would like the report for");
+            string dayInput = Console.ReadLine();
+
+            int day = validation.ValidateDay(dayInput);
+
+
+            Console.WriteLine("Please type month (MM) you would like the report for");
+            string monthInput = Console.ReadLine();
+
+            int month = validation.ValidateMonth(monthInput);
+
+            Console.WriteLine("Please type year (a number from 2000 to 9999)");
+
+            string yearInput = Console.ReadLine();
+
+            int year = validation.ValidateYear(yearInput);
+
+
+            var yearMonthDay = new DateTime(year, month, day, 00, 00, 00);
+
+
+            return yearMonthDay;
+
+        }
+
+        /// <summary>
         /// Method <c>GetMonthAndYear</c> gets user input for month and year, validates it and creates a DateTime object out of it.
         /// </summary>
         /// <returns></returns>
@@ -484,7 +523,19 @@ namespace coding_time_tracker
            
         }
 
-        
+        private string GetYearInput()
+        {
+            Console.WriteLine("Please type year (yyyy) you would like the report for");
+            string yearInput = Console.ReadLine();
+
+            int yearInputValidated = validation.ValidateYear(yearInput);
+            string yearString = yearInputValidated.ToString();    
+
+            return yearString;    
+
+        }
+
+
 
 
     }
